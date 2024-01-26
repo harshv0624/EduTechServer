@@ -50,4 +50,20 @@ router.post('/auth/sendOTP',async(req,res)=>{
 
 })
 
+router.post('/auth/RegisterUser',async(req,res)=>{
+    const {email,password,verified}=req.body
+    const data={
+        email:email,
+        password:password,
+        verified:verified
+    }
+    const user=new User(data)
+    try{
+        await user.save()
+        res.send({message:"User Registered"})
+        return
+    }catch(err){
+        res.send({error:"Failed To Register"})
+    }
+})
 module.exports=router
